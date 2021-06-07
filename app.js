@@ -17,26 +17,16 @@ const flash = require('connect-flash');
 const User = require('./models/user');
 const mainRoutes = require("./routes/main");
 const authRoutes = require("./routes/auth");
-const config = require("./config");
-
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://admin:wFi3gs09W3Y8bhC7@e-huzur.upj2e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  const collection = client.db("e-huzur").collection("users");
-  // perform actions on the collection object
-  client.close();
-});
 //const streamRoutes = require("./routes/stream");
 //END ROUTES
-/*
+
 try{
   var config = require('./config');
 }catch(e){
   console.log("db config down");
   console.log(e);
 }
-*/
+
 //IMPORT VIDEO-CONFERANCE
 //END VIDEO-CONFERANCE
 const server = require("http").Server(app);
@@ -48,17 +38,14 @@ const peerServer = ExpressPeerServer(server, {
   debug: true,
 });
 const isLoggedIn = require('./utils/isLoggedIn');
-/*
+
 try{
   mongoose.connect(config.db.connection, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true});
 }catch(e){
   console.log("db config down");
   mongoose.connect(process.env.DB_CONNECTION_STRING,{useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true});
 }
-*/
-
 //mongoose.Promise = global.Promise;
-
 app.set("view engine","ejs");
 app.use(express.static('public'));
 app.use("/peerjs", peerServer);

@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const passport = require('passport');
-//const flash = require('connect-flash');
 
+// rendering signup page
 router.get('/signup', (req,res) => {
     res.render('signup');
 });
-
+// creating new USER and checking 18 or under if under 18 not signup to app
 router.post('/signup', async (req, res) => {
     try{
         if (req.body.age >= 18) {
@@ -30,20 +30,20 @@ router.post('/signup', async (req, res) => {
         console.log(err);
         res.send(err);
     }
-
  });
  
 //login-page
 router.get("/login", (req,res) => {
     res.render('login');
 });
+//authenticate 
 router.post("/login", passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true,
 	successFlash: `Girişiniz Başarılı! Hoşgeldiniz !`
 })); 
-
+// log-out
 router.get("/logout",(req,res) => {
     req.logOut();
     req.flash("success", `Çıkış Başarılı! Görüşmek üzere !`);
